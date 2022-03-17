@@ -9,313 +9,572 @@
 
 
 const title = "HAMURABI";
-const intro = "CREATIVE COMPUTING  MORRISTOWN, NEW JERSEY\n\n\nTRY YOUR HAND AT GOVERNING ANCIENT SUMERIA\n\
-FOR A TEN-YEAR TERM OF OFFICE.\n"
- 
-let D1=0;
-let P1=0;
-let Z=0;
-let P=95;
-let S=2800;
-let H=3000;
-let E=H-S;
-let Y=3;
-let A=H/Y;
-let I=5;
-let Q=1;
-let D=0;
+const intro1 = "CREATIVE COMPUTING  MORRISTOWN, NEW JERSEY"
+const intro2 = "TRY YOUR HAND AT GOVERNING ANCIENT SUMERIA"
+const intro3 = "FOR A TEN-YEAR TERM OF OFFICE."
 
-let gameOver = false;
-
-
-
-function line900(){
-    let s = "A FANTASTIC PERFORMANCE!!!  CHARLEMANGE, DISRAELI, AND\n"
-    s += "JEFFERSON COMBINED COULD NOT HAVE DONE BETTER!\n"
-    console.log(s);
-    line990();
-}
-
-function line565(){
-
-    let s = "DUE TO THIS EXTREME MISMANAGEMENT YOU HAVE NOT ONLY\n"
-    s += "BEEN IMPEACHED AND THROWN OUT OF OFFICE BUT YOU HAVE\n"
-    s += "ALSO BEEN DECLARED NATIONAL FINK!!!!\n"
-    console.log(s);
-    line990();
-}
-
-function line940(){
-    let s = "YOUR HEAVY-HANDED PERFORMANCE SMACKS OF NERO AND IVAN IV.\n"
-    s += "THE PEOPLE (REMIANING) FIND YOU AN UNPLEASANT RULER, AND,\n"
-    s += "FRANKLY, HATE YOUR GUTS!!\n"
-    console.log(s);
-    line990();
-}
-
-function line960(){
-    let s ="YOUR PERFORMANCE COULD HAVE BEEN SOMEWHAT BETTER, BUT\n"
-    s += `REALLY WASN'T TOO BAD AT ALL. ${MAth.floor(P*.8*Math.random())} PEOPLE\n`
-    s += "WOULD DEARLY LIKE TO SEE YOU ASSASSINATED BUT WE ALL HAVE OUR\n"
-    s += "TRIVIAL PROBLEMS.\n"
-    console.log(s);
-    line990();
-
-}
-
-function line710(){
-    let s = `HAMURABI:  THINK AGAIN.  YOU HAVE ONLY ${S} BUSHELS OF GRAIN.  NOW THEN,\n`;
-    console.log(s);
-}
+const States = {
+    StartYear: 'StartYear',
+    BuyLandQuestion: 'BuyLandQuestion',
+    BuyLandFunction: 'BuyLandFunction',
+    SellLandQuestion: 'SellLandQuestion',
+    SellLandFunction: 'SellLandFunction',
+    FeedPeopleQuestion: 'FeedPeopleQuestion',
+    FeedPeopleFunction: 'FeedPeopleFunction',
+    SeedLandQuestion: 'SeedLandQuestion',
+    SeedLandFunction: 'SeedLandFunction',
+    Inputs: 'Inputs',
+    Exit: 'Exit'
+};
 
 
-function line720(){
-    let s = `HAMURABI:  THINK AGAIN.  YOU OWN ONLY ${A}  ACRES.  NOW THEN,\n`;
-    console.log(s);
-}
 
-function line800(){
-    C=Math.floor(Math.random()*5)+1
-}
+class Hamurabi {
 
-function line860(){
-    let s =  `IN YOUR 10-YEAR TERM OF OFFICE, ${P1} PERCENT OF THE\n`
-    s+= "POPULATION STARVED PER YEAR ON THE AVERAGE, I.E. A TOTAL OF\n"
-    s += `${D1} PEOPLE DIED!!\n`
-    L=A/P
-    s += "YOU STARTED WITH 10 ACRES PER PERSON AND ENDED WITH\n"
-    s += `${L} ACRES PER PERSON.\n`
-    console.log(s);
-    line880();
-}
+    constructor() {
+
+        this.D1 = 0;
+        this.P1 = 0;
+        this.Z = 0;
+        this.P = 95;
+        this.S = 2800;
+        this.H = 3000;
+        this.E = this.H - this.S;
+        this.Y = 3;
+        this.A = this.H / this.Y;
+        this.I = 5;
+        this.Q = 1;
+        this.D = 0;
+        this.gameOver = false;
 
 
-function line880(){
+        this.state = States.StartYear;
+        this.nextState = States.Exit;
+        this.userInput = ""
+        this.userQuantity = -1
 
-    if(P1>33){
-        line565();
-    } else if (L<7) {
-        line565();
-    } else if (P1>10) {
-        line940();
-    } else if(L<9)
-    {
-        line940();
-    } else if (P1>3){
-        line960();
-    } else if(L<10){
-        line960();
-    } else{
-        line900();
+
+
     }
-}
 
 
-function line850(){
-    let s = "HAMURABI:  I CANNOT DO WHAT YOU WISH.\nGET YOURSELF ANOTHER STEWARD!!!!!\n"
-    console.log(s);
-    //GOTO 990
-    line990();
-}
-
-function line990(){
-    // ring the bell (ascii 7) 10 times
-    //990 PRINT: FOR N=1 TO 10: PRINT CHR$(7);: NEXT N
-    let s = "SO LONG FOR NOW.\n";
-    console.log(s);
-    gameOver = true;
-    return;
-}
 
 
-function line511(){
-    line800();
-    // *** A BOUNTIFUL HARVEST!
-    Y=C;
-    H=D*Y;
-    E=0;
-    line800();
-    if(Math.floor(C/2)==C/2){
-        // *** RATS ARE RUNNING WILD!!
-        E=Math.floor(S/C)
-    }
-    // 530
-    S=S-E+H
-    line800();
-    // *** LET'S HAVE SOME BABIES
-    I=Math.floor(C*(20*A+S)/P/100+1)
-    // *** HOW MANY PEOPLE HAD FULL TUMMIES?
-    C=Math.floor(Q/20)
-    // *** HORROS, A 15% CHANCE OF PLAGUE
-    Q=Math.floor(10*(2*Math.random()-.3))
-    if(P<C){
-        D = 0;
-        return;
-    } 
-    // *** STARVE ENOUGH FOR IMPEACHMENT?
-    D=P-C
-    if(D>.45*P){
-        let s7 =  `\nYOU STARVED ${D} PEOPLE IN ONE YEAR!!!\n`
-        console.log(s7);
-        line565();
-    } else{
-        P1=((Z-1)*P1+D*100/P)/Z;
-        P=C;
-        D1=D1+D;
-        return;
-    } 
 
-}
+    nextYear(term) {
 
-function nextYear(){
-    //215
-    let text = "HAMURABI:  I BEG TO REPORT TO YOU,\n";
-    Z=Z+1
-    text += `IN YEAR ${Z}, ${D} PEOPLE STARVED, ${I} CAME TO THE CITY,\n`
-    P=P+I
-    console.log(text);
-
-    if(Q<=0){
-        P=Math.floor(P/2)
-        let s1 = "A HORRIBLE PLAGUE STRUCK!  HALF THE PEOPLE DIED."
-        console.log(s1);
         
-    }
-    let s2 = `POPULATION IS NOW ${P}\nTHE CITY NOW OWNS ${A} ACRES.\nYOU HARVESTED ${Y} BUSHELS PER ACRE.\n\THE RATS ATE ${E} BUSHELS.\nYOU NOW HAVE ${S} BUSHELS IN STORE.\n`
-    console.log(s2);
+        if (this.gameOver)
+            return;
+
+        switch (this.state) {
+
+            case States.StartYear:
+                //215
+                let text = "HAMURABI:  I BEG TO REPORT TO YOU,";
+                term.addText(text)
+                this.Z = this.Z + 1
+                text = `IN YEAR ${this.Z}, ${this.D} PEOPLE STARVED, ${this.I} CAME TO THE CITY,`
+                this.P = this.P + this.I
+
+                term.addText(text)
+
+                if (this.Q <= 0) {
+                    this.P = Math.floor(this.P / 2)
+                    let s1 = "A HORRIBLE PLAGUE STRUCK!  HALF THE PEOPLE DIED."
+                    term.addText(s1)
+
+
+                }
+                let s2 = `POPULATION IS NOW ${this.P}`
+                term.addText(s2)
+                s2 = `THE CITY NOW OWNS ${this.A} ACRES.`
+                term.addText(s2)
+                s2 = `YOU HARVESTED ${this.Y} BUSHELS PER ACRE.`
+                term.addText(s2)
+                s2 = `THE RATS ATE ${this.E} BUSHELS.`
+                term.addText(s2)
+                s2 = `YOU NOW HAVE ${this.S} BUSHELS IN STORE.`
+                term.addText(s2)
+
+                if (this.Z == 11) {
+                    this.line860(term);
+                    return;
+                }
+
+                let C = Math.floor(10 * Math.random());
+                this.Y = C + 17;
+                let s3 = `LAND IS TRADING AT ${this.Y} BUSHELS PER ACRE.`
+
+                term.addText(s3)
+
+                this.state = States.BuyLandQuestion
+
+
+                break;
+            case States.BuyLandQuestion:
+                let s4 = `HOW MANY ACRES DO YOU WISH TO BUY`
+                term.addText(s4);
+                this.state = States.Inputs
+                this.nextState = States.BuyLandFunction
+                break;
+            case States.BuyLandFunction:
+
+                [this.state, this.nextState] = this.buyLand(this.userQuantity, term)
+
+                break;
+            case States.SellLandQuestion:
+                let s5 = "HOW MANY ACRES DO YOU WISH TO SELL";
+                term.addText(s5)
+
+                this.state = States.Inputs
+                this.nextState = States.SellLandFunction
+                break;
+            case States.SellLandFunction:
+
+                [this.state, this.nextState] = this.sellLand(this.userQuantity, term)
+
+                
+                break;
+
+            case States.FeedPeopleQuestion:
+                let s6 = "HOW MANY BUSHELS DO YOU WISH TO FEED YOUR PEOPLE";
+                // console.log(s6);
+                term.addText(s6)
+                this.state = States.Inputs
+                this.nextState = States.FeedPeopleFunction
+                break;
+
+            case States.FeedPeopleFunction:
+
+                [this.state, this.nextState] = this.feedPeople(this.userQuantity, term)
+
+                break;
+
+
+            case States.SeedLandQuestion:
+                let s7 = "HOW MANY ACRES DO YOU WISH TO PLANT WITH SEED";
+                // console.log(s7);
+                term.addText(s7)
+
+                this.state = States.Inputs
+                this.nextState = States.SeedLandFunction
+                break;
+
+            case States.SeedLandFunction:
+
+                [this.state, this.nextState] = this.seedLand(this.userQuantity, term)
+
+                break;
+
+            case States.Inputs:
+                //wait for inputs
+                if (term.isReturn()) {
+                    this.userInput = term.getInput();
+                    this.userQuantity = parseInt(this.userInput)
+                    this.state = this.nextState
  
-    if(Z==11){
-        line860();
-        return; 
-    }
-    else{
-        let C = Math.floor(10 * Math.random());
-        Y = C + 17;
-        let s3 = `LAND IS TRADING AT ${Y} BUSHELS PER ACRE.\n`
-        console.log(s3);
-        buyBool = true;
-        while (buyBool) {
-            let s4 = `HOW MANY ACRES DO YOU WISH TO BUY\n`
-            console.log(s4);
-            const Q = +prompt("Buy land");
-            if (Q < 0) {
-                line850();
+                }
+
+                break;
+
+            case States.Exit:
                 return;
+            default:
+                console.log('Should not come here');
+            
+        }
+
+
+
+    }
+
+
+
+
+    buyLand(input, term) {
+
+        if (isNaN(input)) {
+
+            return [States.BuyLandQuestion,
+                undefined,
+            ];
+        }
+        this.Q = input
+
+        if (this.Q == 0) {
+            return [
+                States.SellLandQuestion,
+                undefined,
+            ];
+        } else if (this.Q < 0) {
+            this.line850(term);
+            return [
+                States.Exit,
+                undefined,
+            ];
+
+        } else if (this.Q > 0) {
+
+            if (this.Y * this.Q > this.S) {
+                this.line710(term);
+                return [
+                    States.BuyLandQuestion,
+                    undefined,
+                ];
             }
-            if (Q >= 0) {
-                if (Y * Q > S) {
-                    line710();
+            else {
+                // if (Q != 0) {
+                this.A = this.A + this.Q;
+                this.S = this.S - this.Y * this.Q;
+                this.C = 0;
+                //GOTO 400
+                return [
+                    States.FeedPeopleQuestion,
+                    undefined,
+                ];
+            }
+        }
+
+
+    }
+
+
+    line710(term) {
+        let s = `HAMURABI:  THINK AGAIN.  YOU HAVE ONLY ${this.S} BUSHELS OF GRAIN.  NOW THEN,`;
+        term.addText(s)
+    }
+
+
+
+
+    sellLand(input, term) {
+
+        if (isNaN(input)) {
+
+            return [States.SellLandQuestion,
+                undefined,
+            ];
+        }
+        this.Q = input
+
+
+        if (this.Q < 0) {
+            this.line850(term);
+            return [
+                States.Exit,
+                undefined,
+            ];
+
+        } else if (this.Q < this.A) {
+            this.A = this.A - this.Q;
+            this.S = this.S + this.Y * this.Q;
+            this.C = 0;
+            return [
+                States.FeedPeopleQuestion,
+                undefined,
+            ];
+
+        }
+        else {
+            this.line720(term);
+            return [
+                States.SellLandQuestion,
+                undefined,
+            ];
+
+        }
+
+
+    }
+
+    line720(term) {
+        let s = `HAMURABI:  THINK AGAIN.  YOU OWN ONLY ${this.A}  ACRES.  NOW THEN,`;
+        term.addText(s)
+    }
+
+
+    feedPeople(input, term) {
+
+
+
+        if (isNaN(input)) {
+
+            return [States.FeedPeopleQuestion,
+                undefined,
+            ];
+        }
+        this.Q = input
+
+
+        if (this.Q < 0) {
+            this.line850(term);
+            return [
+                States.Exit,
+                undefined,
+            ];
+
+        } else   //*** TRYING TO USE MORE GRAIN THAN IS IN SILOS?
+            if (this.Q <= this.S) {
+                //THEN 430
+                this.S = this.S - this.Q;
+                this.C = 1;
+                return [
+                    States.SeedLandQuestion,
+                    undefined,
+                ];
+
+            }
+            else {
+                this.line710(term);
+                return [
+                    States.FeedPeopleQuestion,
+                    undefined,
+                ];
+
+            }
+
+    }
+
+
+    seedLand(input, term) {
+
+
+        if (isNaN(input)) {
+
+            return [States.SeedLandQuestion,
+                undefined,
+            ];
+        }
+        this.D = input
+
+        if (this.D == 0) {
+            this.line511(term)
+            return [
+                States.StartYear,
+                undefined,
+            ];
+
+        }
+        else if (this.D < 0) {
+            this.line850(term);
+            return [
+                States.Exit,
+                undefined,
+            ];
+        }
+        else {
+            //*** TRYING TO PLANT MORE ACRES THAN YOU OWN?
+            if (this.D <= this.A) {
+                // *** ENOUGH GRAIN FOR SEED?
+                if (Math.floor(this.D / 2) <= this.S) {
+                    // THEN 455
+                    // *** ENOUGH PEOPLE TO TEND THE CROPS?
+                    if (this.D < 10 * this.P) {
+                        //THEN 510
+                        this.S = this.S - Math.floor(this.D / 2);
+                        this.line511(term);
+                        return [
+                            States.StartYear,
+                            undefined,
+                        ];
+                    } else {
+                        let s9 = `BUT YOU HAVE ONLY ${this.P} PEOPLE TO TEND THE FIELDS!  NOW THEN,`;
+                        term.addText(s9)
+                        return [
+                            States.SeedLandQuestion,
+                            undefined,
+                        ];
+
+                    }
                 }
                 else {
-                    buyBool = false;
+                    this.line710(term);
+                    return [
+                        States.SeedLandQuestion,
+                        undefined,
+                    ];
 
-                    if (Q != 0) {
-                        A = A + Q;
-                        S = S - Y * Q;
-                        C = 0;
-                        //GOTO 400
-                    }
-                    else{
-                        //Q=0
-                        // sell land
-                        sellBool = true;
-                        while (sellBool) {
-        
-                            let s5 =  "HOW MANY ACRES DO YOU WISH TO SELL";
-                            console.log(s5);
-                            const Q = prompt("Sell land");
-                            if (Q < 0) {
-                                line850();
-                                return;
-                            }
-                            if(Q<A) {
-                                A=A-Q;
-                                S=S+Y*Q;
-                                C=0;
-                                sellBool = false;
-                            }
-                            else{
-                                line720();
-                            }
-                        }
-
-                    }
                 }
 
-            } 
+            } else {
+                this.line720(term);
+                return [
+                    States.SeedLandQuestion,
+                    undefined,
+                ];
+
+            }
+
         }
-        // 400 feed people
-        let feedBool = true;
-        while (feedBool) {
-
-            let s6 = "\nHOW MANY BUSHELS DO YOU WISH TO FEED YOUR PEOPLE\n";
-            console.log(s6);
-            Q = +prompt("feed");
-            if (Q < 0) {
-                line850();
-                return;
-            }
-            //*** TRYING TO USE MORE GRAIN THAN IS IN SILOS?
-            if (Q <= S) {
-                //THEN 430
-                S = S - Q;
-                C = 1;
-                feedBool = false;
-            }
-            else {
-                line710();
-            }
-        }
-
-        let seedBool = true;
-        while(seedBool){
-            let s7 = "HOW MANY ACRES DO YOU WISH TO PLANT WITH SEED";
-            console.log(s7);
-            D = +prompt("Seed");
-            if (D == 0) {
-                line511()
-                seedBool = false;
-            }
-            else if (D < 0) {
-                line850();
-                return;
-            }
-            else {
-                //*** TRYING TO PLANT MORE ACRES THAN YOU OWN?
-                if(D <= A){
-                    // *** ENOUGH GRAIN FOR SEED?
-                    if(Math.floor(D/2)<=S){
-                        // THEN 455
-                        // *** ENOUGH PEOPLE TO TEND THE CROPS?
-                        if(D<10*P){
-                            //THEN 510
-                            S=S-Math.floor(D/2);
-                            line511();
-                            seedBool = false;
-                        } else{
-                            let s9 = `BUT YOU HAVE ONLY ${P} PEOPLE TO TEND THE FIELDS!  NOW THEN,\n`;
-                            console.log(s9);
-                        }
-                    }
-                    else{
-                        line710();
-                    }
-                    //THEN 450
-
-                } else{
-                    line720();
-                }
-
-            }
-        }
-
-
-
 
     }
 
- 
 
+
+
+    line511(term) {
+        this.C = line800();
+        // *** A BOUNTIFUL HARVEST!
+        this.Y = this.C;
+        this.H = this.D * this.Y;
+        this.E = 0;
+        this.C = line800();
+        if (Math.floor(this.C / 2) == this.C / 2) {
+            // *** RATS ARE RUNNING WILD!!
+            this.E = Math.floor(this.S / this.C)
+        }
+        // 530
+        this.S = this.S - this.E + this.H
+        this.C = line800();
+        // *** LET'S HAVE SOME BABIES
+        this.I = Math.floor(this.C * (20 * this.A + this.S) / this.P / 100 + 1)
+        // *** HOW MANY PEOPLE HAD FULL TUMMIES?
+        this.C = Math.floor(this.Q / 20)
+        // *** HORROS, A 15% CHANCE OF PLAGUE
+        this.Q = Math.floor(10 * (2 * Math.random() - .3))
+        if (this.P < this.C) {
+            this.D = 0;
+            return;
+        }
+        // *** STARVE ENOUGH FOR IMPEACHMENT?
+        this.D = this.P - this.C
+        if (this.D > .45 * this.P) {
+            let s7 = `YOU STARVED ${this.D} PEOPLE IN ONE YEAR!!!`
+            term.addText(s7);
+            this.line565(term);
+        } else {
+            this.P1 = ((this.Z - 1) * this.P1 + this.D * 100 / this.P) / this.Z;
+            this.P = this.C;
+            this.D1 = this.D1 + this.D;
+            return;
+        }
+
+    }
+
+
+
+    line900(term) {
+        let s = "A FANTASTIC PERFORMANCE!!!  CHARLEMANGE, DISRAELI, AND"
+        term.addText(s)
+
+        s = "JEFFERSON COMBINED COULD NOT HAVE DONE BETTER!"
+        term.addText(s)
+        this.line990(term);
+    }
+
+    line565(term) {
+
+        let s = "DUE TO THIS EXTREME MISMANAGEMENT YOU HAVE NOT ONLY"
+        term.addText(s)
+
+        s = "BEEN IMPEACHED AND THROWN OUT OF OFFICE BUT YOU HAVE"
+        term.addText(s)
+        s = "ALSO BEEN DECLARED NATIONAL FINK!!!!"
+        term.addText(s)
+        this.line990(term);
+    }
+
+    line940(term) {
+        let s = "YOUR HEAVY-HANDED PERFORMANCE SMACKS OF NERO AND IVAN IV."
+        term.addText(s)
+        s = "THE PEOPLE (REMAINING) FIND YOU AN UNPLEASANT RULER, AND,"
+        term.addText(s)
+        s = "FRANKLY, HATE YOUR GUTS!!"
+        term.addText(s)
+        this.line990(term);
+    }
+
+    line960(term) {
+        let s = "YOUR PERFORMANCE COULD HAVE BEEN SOMEWHAT BETTER, BUT"
+        term.addText(s)
+        s = `REALLY WASN'T TOO BAD AT ALL. ${Math.floor(this.P * .8 * Math.random())} PEOPLE`
+        term.addText(s)
+        s = "WOULD DEARLY LIKE TO SEE YOU ASSASSINATED BUT WE ALL HAVE OUR"
+        term.addText(s)
+        s = "TRIVIAL PROBLEMS."
+        term.addText(s)
+        this.line990(term);
+
+    }
+
+
+
+    line850(term) {
+        let s = "HAMURABI:  I CANNOT DO WHAT YOU WISH."
+
+        term.addText(s)
+        s = "GET YOURSELF ANOTHER STEWARD!!!!!"
+        term.addText(s)
+        this.line990(term);
+    }
+
+
+
+
+    line990(term) {
+        // ring the bell (ascii 7) 10 times
+        //990 PRINT: FOR N=1 TO 10: PRINT CHR$(7);: NEXT N
+        let s = "SO LONG FOR NOW.";
+        term.addText(s)
+        this.gameOver = true;
+        return;
+    }
+
+
+    line880(term) {
+
+        if (this.P1 > 33) {
+            this.line565(term);
+        } else if (this.L < 7) {
+            this.line565(term);
+        } else if (this.P1 > 10) {
+            this.line940(term);
+        } else if (this.L < 9) {
+            this.line940(term);
+        } else if (this.P1 > 3) {
+            this.line960(term);
+        } else if (this.L < 10) {
+            this.line960(term);
+        } else {
+            this.line900(term);
+        }
+    }
+
+
+
+    line860(term) {
+        let s = `IN YOUR 10-YEAR TERM OF OFFICE, ${this.P1} PERCENT OF THE`
+        term.addText(s)
+
+        s = "POPULATION STARVED PER YEAR ON THE AVERAGE, I.E. A TOTAL OF"
+        term.addText(s)
+        s = `${this.D1} PEOPLE DIED!!`
+        term.addText(s)
+        this.L = this.A / this.P
+        s = "YOU STARTED WITH 10 ACRES PER PERSON AND ENDED WITH"
+        term.addText(s)
+        s = `${this.L} ACRES PER PERSON.`
+        term.addText(s)
+        this.line880(term);
+    }
+
+};
+
+
+
+function line800() {
+    return Math.floor(Math.random() * 5) + 1
 }
+
+
+
+
+
+
+
+
+
+
 
 
